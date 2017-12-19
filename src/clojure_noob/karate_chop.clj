@@ -28,15 +28,15 @@
 (defn binary-search-offset
     [elements search]
     (letfn [(binary-search 
-        [offset size]
-        (let [half-size (half size)
-            idx (+ offset half-size) 
+        [start end]
+        (let [size (half end)
+            idx (+ start size) 
             current (get elements idx)]
-;            (println "offset" offset "half-size" half-size "idx" idx "current" current)
+;            (println "start" start "size" size "idx" idx "current" current)
             (cond
-                (and (= size 0) (not= current search)) nil
+                (and (= end 0) (not= current search)) nil
                 (= current search) idx
-                (< current search) (binary-search (+ offset half-size) half-size)
-                (> current search) (binary-search offset half-size))))]
+                (< current search) (binary-search (+ start size) size)
+                (> current search) (binary-search start size))))]
         (binary-search 0 (count elements))))
     
