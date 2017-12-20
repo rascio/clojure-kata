@@ -13,9 +13,9 @@
 (defmethod sum true [a b] nil)
 (defmethod sum false [a b] (+ a b))
 
-(defn mapp
-    [v]
-    #(if (nil? v) nil (%1 v %2)))
+(defn mmap
+    [v f]
+    (if (nil? v) nil (f v)))
 
 (defn binary-search-recursive
     [elements search]
@@ -26,7 +26,7 @@
         (cond
             (and (= size 1) (not= current search)) nil
             (= current search) idx
-            (< current search) ((mapp (binary-search-recursive (subvec elements idx) search)) + idx)
+            (< current search) ((mmap (binary-search-recursive (subvec elements idx) search) (partial + idx)))
             (> current search) (binary-search-recursive (subvec elements 0 idx) search))))
 
 (defn binary-search-offset
