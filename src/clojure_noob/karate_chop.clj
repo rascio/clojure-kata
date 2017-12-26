@@ -14,19 +14,19 @@
 (defmethod sum false [a b] (+ a b))
 
 (defn mmap
-    [v f]
-    (if (nil? v) nil (f v)))
+    [f & arguments]
+    (if (nil? (first arguments)) nil (apply f arguments)))
 
 (defn binary-search-recursive
     [elements search]
     (let [size (count elements)
-        idx (half (count elements))
+        idx (half size)
         current (get elements idx)]
 ;        (println "idx:" idx "current:" current "comparison:" (compare current search) "size:" size "elements:" elements)
         (cond
             (and (= size 1) (not= current search)) nil
             (= current search) idx
-            (< current search) ((mmap (binary-search-recursive (subvec elements idx) search) (partial + idx)))
+            (< current search) (mmap + (binary-search-recursive (subvec elements idx) search) idx)
             (> current search) (binary-search-recursive (subvec elements 0 idx) search))))
 
 (defn binary-search-offset

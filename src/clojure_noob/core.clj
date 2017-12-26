@@ -17,6 +17,17 @@
     1
     (* n (factorial (dec n)))))
 
+(defmacro code-critic
+  "Phrases are courtesy Hermes Conrad from Futurama"
+  [bad good]
+  `(do 
+      (println "Great squid of Madrid, this is bad code:" (quote ~bad))
+      (println "Sweet gorilla of Manila, this is good code:" (quote ~good))))
+      
+;(code-critic (1 + 1) (+ 1 1))
+;Great squid of Madrid, this is bad code: (1 + 1)
+;Sweet gorilla of Manila, this is good code: (+ 1 1)
+
 (defn sum3Or5
   [n]
   (let [numbers (range n)
